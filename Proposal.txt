@@ -1,0 +1,15 @@
+Name: Tristan Trinh
+Stack: JavaScript/React
+GitHub Repo: https://github.com/TristanT8/SoloProject
+Project Name: Calendar App (Name TBD)
+Project Description: A calendar app useful for anyone
+MVP Features: 
+    GitHub/.gitignore
+    CRUD non-users
+    Data validations
+    Use of CSS & Bootstrap
+    Login/Register
+Bonus Features (In order of importance):
+    Deployment
+    External API
+    Responsive Styling
