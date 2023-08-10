@@ -8,8 +8,14 @@
     </head>
     <body>
         
-        <div>
-            <div id="header"> </div>
+        <div id ="container">
+            <div id="header">
+                <div id ='displayMonth'></div>
+                <div>
+                    <button id="backMonth">Previous Month</button>
+                    <button id="nextMonth">Next Month</button>
+                </div>
+            </div>
 
             <div id="weekdays">
                 <div>Sunday</div>
@@ -20,10 +26,28 @@
                 <div>Friday</div>
                 <div>Saturday</div>
             </div>
-
+            
             <div id="calendar"> </div>
         </div>
 
-        <script src="./script.js"></script>
+        <div id="newEventModal">
+            <h4>New Event</h4>
+            <input type="text" id="eventTitle" placeholder="Event Title">
+
+            <button id="createButton">Create</button>
+            <button id="cancelButton">Go Back</button>
+        </div>
+
+        <div id="updateEventModal">
+            <h4>Event</h4>
+            <p id="eventText"></p>
+
+            <button id="deleteButton">Delete Event</button>
+            <button id="closeButton">Close Event</button>
+        </div>
+
+        <div id="modalBackDrop"></div>
+            
+            <script src="./script.js"></script>
     </body>
 </html>

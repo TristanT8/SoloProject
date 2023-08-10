@@ -18,7 +18,7 @@ button {
 
 #header {
     padding: 10px;
-    color: #d36c6c;
+    color: #1dd9cc;
     font-size: 26px;
     font-family: sans-serif;
     display: flex;
@@ -26,7 +26,7 @@ button {
 }
 
 #header button {
-    background-color:#92a1d1;
+    background-color:#0e42ed;
 }
 
 #container {
@@ -40,7 +40,7 @@ button {
 }
 
 #weekdays div {
-    width: 100px;
+    width: 100%;
     padding: 10px;
 }
 
@@ -66,7 +66,7 @@ button {
 }
 
 .day:hover {
-    background-color: #e8faed;
+    background-color: #39ab5a;
 }
 
 .day + #currentDay {
@@ -89,7 +89,7 @@ button {
     box-shadow: none !important;
 }
 
-#newEventModal, #deleteEventModal {
+#newEventModal, #updateEventModal {
     display: none;
     z-index: 20;
     padding: 25px;
@@ -122,7 +122,7 @@ button {
     background-color: #d36c6c;
 }
 
-#saveButton, #closeButton {
+#createButton, #closeButton {
     background-color: #92a1d1;
 }
 
