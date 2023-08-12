@@ -107,6 +107,9 @@ function closeModal(){
     updateEventModal.style.display = 'none';
     backDropModal.style.display = 'none';
     eventTitle.value = '';
+    eventLocation.value = '';
+    eventTime.value = '';
+    eventDescription.value = '';
     clicked = null;
     getCalendar();
 }
