@@ -1,3 +1,23 @@
+/* App.css */
 .App {
   text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  margin: 20px 0;
+}
+
+h3 {
+  margin: 10px 0;
+}
+
+.date-picker-overlay {
+  position: relative;
+  z-index: 1000; /* Ensure the date picker appears above other content */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  display: inline-block;
 }
