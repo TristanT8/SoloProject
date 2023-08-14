@@ -27,7 +27,7 @@ const initialEvent = {
   date: null,
   location: "",
   description: "",
-  type: "",
+  type: "work",
 };
 
 
@@ -190,6 +190,7 @@ function handleAddEvent() {
                 _id: event._id,
               }));
               setAllEvents(updatedEvents);
+              setEditingEvent(null); // Clear the editing event
             })
             .catch((error) => {
               // Handle error
@@ -250,22 +251,23 @@ function handleAddEvent() {
           <option value="personal">Personal -- Blue</option>
           <option value="fun">Fun -- Green</option>
         </select>
-        <button onClick={handleAddEvent}>Add Event</button>
+        <button className="btn btn-success" onClick={handleAddEvent}>Add Event</button>
+
       </div>
 
 
       <Calendar
-  localizer={localizer}
-  events={allEvents}
-  startAccessor="start"
-  endAccessor="end"
-  style={{ height: 500, margin: "60px" }}
-  onSelectEvent={handleEventClick}
-  eventPropGetter={(event) => {
-    const backgroundColor = getBackgroundColorByEventType(event.type);
-    return { style: { backgroundColor } };
-  }}
-/>
+        localizer={localizer}
+        events={allEvents}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: 500, margin: "60px" }}
+        onSelectEvent={handleEventClick}
+        eventPropGetter={(event) => {
+          const backgroundColor = getBackgroundColorByEventType(event.type);
+          return { style: { backgroundColor } };
+        }}
+      />
 
 
 
@@ -302,9 +304,9 @@ function handleAddEvent() {
               value={editingEvent.description}
               onChange={(e) => setEditingEvent({ ...editingEvent, description: e.target.value })}
             />
-            <button onClick={handleEditEvent}>Save</button>
-            <button onClick={handleCancelEdit}>Cancel</button>
-            <button onClick={() => handleDeleteEvent(editingEvent._id)}>Delete</button>
+            <button className="btn btn-outline-success" onClick={handleEditEvent}>Save</button>
+            <button className="btn btn-outline-warning" onClick={handleCancelEdit}>Cancel</button>
+            <button className="btn btn-danger" onClick={() => handleDeleteEvent(editingEvent._id)}>Delete</button>
           </div>
         </div>
       )}
