@@ -36,6 +36,10 @@ function App() {
   const [newEvent, setNewEvent] = useState(initialEvent);
   const [allEvents, setAllEvents] = useState([]);
   const [editingEvent, setEditingEvent] = useState(null);
+  const [createValidationErrors, setCreateValidationErrors] = useState([]);
+  const [editValidationErrors, setEditValidationErrors] = useState([]);
+  
+
 
   function getBackgroundColorByEventType(eventType) {
     switch (eventType) {
@@ -60,7 +64,7 @@ useEffect(() => {
       const mappedEvents = response.data.map(event => ({
         title: event.title,
         start: new Date(event.date), // Use "start" instead of "date"
-        end: new Date(event.date),   // Use "end" as well if you want to specify end times
+        end: new Date(event.date), 
         location: event.location,
         description: event.description,
         type: event.type,
@@ -75,6 +79,24 @@ useEffect(() => {
 
 
 function handleAddEvent() {
+
+  const errors = [];
+  if (!newEvent.title) {
+    errors.push("Event name must be at least three characters");
+  }
+  if (!newEvent.date) {
+    errors.push("Event must have a date");
+  }
+  if (!newEvent.location) {
+    errors.push("Event must have a location");
+  }
+  if (!newEvent.description) {
+    errors.push("Event description must be at least 5 characters");
+  }
+  if (errors.length > 0) {
+    setCreateValidationErrors(errors);
+    return;
+  }
   // Create a new event with description
   const eventToAdd = {
     title: newEvent.title,
@@ -92,7 +114,6 @@ function handleAddEvent() {
     .then((response) => {
       console.log("API response after adding event:", response.data);
       // Event successfully added to the database
-
       // Fetch the updated events from the server
       axios
         .get("http://localhost:8000/api/events")
@@ -112,22 +133,36 @@ function handleAddEvent() {
           // Handle error
           console.error("Error fetching updated events:", error);
         });
-
       setNewEvent(initialEvent);
+      setCreateValidationErrors([]); // Clear validation errors
     })
     .catch((error) => {
       // Handle error
-      console.error("Error adding event:", error);
+        console.error("Error adding event:", error);
     });
 }
-
-
   function handleEventClick(event) {
     // Set the event to be edited when it's clicked
     setEditingEvent(event);
   }
-
   function handleEditEvent() {
+    const errors = [];
+    if (!editingEvent.title) {
+      errors.push("Event must have a name");
+    }
+    if (!editingEvent.date) {
+      errors.push("Event must have a date");
+    }
+    if (!editingEvent.location) {
+      errors.push("Event must have a location");
+    }
+    if (!editingEvent.description) {
+      errors.push("Event must have a description");
+    }
+    if (errors.length > 0) {
+      setEditValidationErrors(errors);
+      return;
+    }
     if (editingEvent) {
       // Update the existing event in the database
       axios
@@ -138,9 +173,7 @@ function handleAddEvent() {
           description: editingEvent.description,
           type: editingEvent.type,
         })
-        .then((response) => {
-          const updatedEvent = response.data;
-          // Fetch the updated events from the server
+        .then(() => {
           axios
             .get("http://localhost:8000/api/events")
             .then((response) => {
@@ -155,6 +188,7 @@ function handleAddEvent() {
               }));
               setAllEvents(updatedEvents);
               setEditingEvent(null); // Clear the editing event
+              setEditValidationErrors([]); // Clear validation errors
             })
             .catch((error) => {
               // Handle error
@@ -214,6 +248,15 @@ function handleAddEvent() {
       <h1>Calendar App</h1>
       <h3>Add New Event</h3>
       <div>
+      {createValidationErrors.length > 0 && (
+        <div className="validation-errors">
+          {createValidationErrors.map((error, index) => (
+            <p key={index} style={{ color: "red" }}>
+              {error}
+            </p>
+          ))}
+        </div>
+      )}
         <input
           type="text"
           placeholder='Event Name'
@@ -227,7 +270,7 @@ function handleAddEvent() {
           style={{ marginRight: "10px" }}
           selected={newEvent.date}
           onChange={(date) => setNewEvent({ ...newEvent, date })}
-        />
+          />
         </div>
           <input
             type="text"
@@ -235,24 +278,23 @@ function handleAddEvent() {
             style={{ width: "20%", marginRight: "10px" }}
             value={newEvent.location}
             onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value })}
-          />
+            />
         <input
           type="text"
           placeholder='Event Description'
           style={{ width: "20%", marginRight: "10px" }}
           value={newEvent.description}
           onChange={(e) => setNewEvent({ ...newEvent, description: e.target.value })}
-        />
+          />
         <select
           value={newEvent.type}
           onChange={(e) => setNewEvent({ ...newEvent, type: e.target.value })}
-        >
+          >
           <option value="work">Work -- Red</option>
           <option value="personal">Personal -- Blue</option>
           <option value="fun">Fun -- Green</option>
         </select>
         <button className="btn btn-success" onClick={handleAddEvent}>Add Event</button>
-
       </div>
 
 
@@ -271,10 +313,19 @@ function handleAddEvent() {
 
 
 
-      {editingEvent && (
-        <div className="event-edit-form">
-          <h3>Edit Event</h3>
-          <div>
+        {editingEvent && (
+          <div className="event-edit-form">
+            <h3>Edit Event</h3>
+            <div>
+              {editValidationErrors.length > 0 && (
+                <div className="validation-errors">
+                  {editValidationErrors.map((error, index) => (
+                    <p key={index} style={{ color: "red" }}>
+                      {error}
+                    </p>
+                  ))}
+                </div>
+              )}
             <input
               type="text"
               placeholder='Event Name'
