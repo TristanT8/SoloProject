@@ -49,6 +49,8 @@ function App() {
         return "#3374FF";  // Blue
       case "fun":
         return "#33FF57";  // Green
+      case "school":
+        return "#800080"; // Purple
       default:
         return "#D3D3D3";  // Default gray
     }
@@ -293,10 +295,10 @@ function handleAddEvent() {
           <option value="work">Work -- Red</option>
           <option value="personal">Personal -- Blue</option>
           <option value="fun">Fun -- Green</option>
+          <option value="school">School -- Purple</option>
         </select>
         <button className="btn btn-success" onClick={handleAddEvent}>Add Event</button>
       </div>
-
 
       <Calendar
         localizer={localizer}
@@ -310,8 +312,6 @@ function handleAddEvent() {
           return { style: { backgroundColor } };
         }}
       />
-
-
 
         {editingEvent && (
           <div className="event-edit-form">
