@@ -1,15 +1,20 @@
 // EditEventForm.js
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 
-function EditEventForm({ event, onSave, onCancel, onDelete }) {
+
+function EditEventForm({ onSave, onCancel, onDelete }) {
+    const location = useLocation();
+    const event = location.state.event;
     const [editingEvent, setEditingEvent] = useState(event);
     const [validationErrors, setValidationErrors] = useState([]);
 
     function handleEditEvent() {
+                console.log("Editing event:", editingEvent);
+
     const errors = [];
     if (!editingEvent.title) {
         errors.push("Event must have a name");
@@ -93,3 +98,5 @@ function EditEventForm({ event, onSave, onCancel, onDelete }) {
 }
 
 export default EditEventForm;
+
+

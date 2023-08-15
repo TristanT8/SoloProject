@@ -355,28 +355,9 @@ function handleAddEvent() {
               value={editingEvent.description}
               onChange={(e) => setEditingEvent({ ...editingEvent, description: e.target.value })}
             />
-            <select
-              value={editingEvent.type}
-              onChange={(e) => setEditingEvent({ ...editingEvent, type: e.target.value })}
-            >
-              <option value="work">Work -- Red</option>
-              <option value="personal">Personal -- Blue</option>
-              <option value="fun">Fun -- Green</option>
-              <option value="school">School -- Purple</option>
-            </select>
-
             <button className="btn btn-outline-success" onClick={handleEditEvent}>Save</button>
             <button className="btn btn-outline-warning" onClick={handleCancelEdit}>Cancel</button>
-            <button
-              className="btn btn-danger"
-              onClick={() => {
-                if (window.confirm("Are you sure you want to delete this event?")) {
-                  handleDeleteEvent(editingEvent._id);
-                }
-              }}
-            >
-              Delete
-            </button>
+            <button className="btn btn-danger" onClick={() => handleDeleteEvent(editingEvent._id)}>Delete</button>
           </div>
         </div>
       )}
@@ -385,27 +366,3 @@ function handleAddEvent() {
 }
 
 export default App;
-
-
-// import React from "react";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import EditEventForm from "./components/EditEventForm";
-// import CalendarView from "./components/CalendarView";
-// import AddEventForm from "./components/AddEventForm";
-
-// function App() {
-//   return (
-//     <Router>
-//       <div className="App">
-//         <Routes>
-//           <Route path="/" element={<CalendarView />} />
-//           <Route path="/add-event" element={<AddEventForm />} />
-//           {/* Define a dynamic route for editing an event */}
-//           <Route path="/edit-event/:id" element={<EditEventForm />} />
-//         </Routes>
-//       </div>
-//     </Router>
-//   );
-// }
-
-// export default App;

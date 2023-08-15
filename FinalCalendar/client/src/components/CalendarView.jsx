@@ -43,9 +43,21 @@ function CalendarView() {
         });
     }, []);
 
+function handleEventClick(event) {
+    console.log("Clicked event ID:", event._id);
+    // Redirect to the edit event form with the event's ID as a parameter
+    // Use react-router-dom's Link component
+    return (
+        <Link to={`/edit-event/${event._id}`} state={{ event }}>
+            Edit Event
+        </Link>
+    );
+}
+
     return (
     <div className="calendar-view">
         <h2>Calendar View</h2>
+        <h3>Add Event</h3>
         <Link to="/add-event">Add New Event</Link>
         <Calendar
         localizer={localizer}
@@ -53,6 +65,7 @@ function CalendarView() {
         startAccessor="start"
         endAccessor="end"
         style={{ height: 500, margin: "60px" }}
+        onSelectEvent={handleEventClick}
         />
     </div>
     );
