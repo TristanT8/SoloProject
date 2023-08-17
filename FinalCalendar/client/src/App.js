@@ -46,15 +46,32 @@ function App() {
       case "work":
         return "#FF5733";  // Red
       case "personal":
-        return "#3374FF";  // Blue
+        return "#6CA6FF";  // Blue
       case "fun":
-        return "#33FF57";  // Green
+        return "#00CC00";  // Green
       case "school":
-        return "#800080"; // Purple
+        return "#A070A0"; // Purple
       default:
         return "#D3D3D3";  // Default gray
     }
   }
+  const eventTypeLegend = {
+    work: { label: 'Work', color: '#FF5733' },   // Red
+    personal: { label: 'Personal', color: '#6CA6FF' },   // Blue
+    fun: { label: 'Fun', color: '#00CC00' },   // Green
+    school: { label: 'School', color: '#A070A0' },   // Purple
+  };
+  function EventLegend({ eventType }) {
+    const legendItem = eventTypeLegend[eventType];
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}>
+        <span style={{ width: '15px', height: '15px', backgroundColor: legendItem.color, marginRight: '5px' }}></span>
+        {legendItem.label}
+      </div>
+    );
+  }
+  
+  
   
 
 // Inside the useEffect where you fetch the events
@@ -247,7 +264,7 @@ function handleAddEvent() {
 
   return (
     <div className="App">
-      <h1>Calendar App</h1>
+      <h1>ScheduLife</h1>
       <h3>Add New Event</h3>
       <div>
       {createValidationErrors.length > 0 && (
@@ -292,7 +309,7 @@ function handleAddEvent() {
           value={newEvent.type}
           onChange={(e) => setNewEvent({ ...newEvent, type: e.target.value })}
           >
-          <option value="work">Work -- Red</option>
+          <option value="work">Work -- Orange</option>
           <option value="personal">Personal -- Blue</option>
           <option value="fun">Fun -- Green</option>
           <option value="school">School -- Purple</option>
@@ -311,6 +328,16 @@ function handleAddEvent() {
           const backgroundColor = getBackgroundColorByEventType(event.type);
           return { style: { backgroundColor } };
         }}
+          components={{
+            event: (props) => (
+              <div>
+                {eventTypeLegend[props.event.type] && (
+                  <EventLegend eventType={props.event.type} />
+                )}
+                {props.title}
+              </div>
+            ),
+          }}
       />
 
         {editingEvent && (
@@ -359,7 +386,7 @@ function handleAddEvent() {
               value={editingEvent.type}
               onChange={(e) => setEditingEvent({ ...editingEvent, type: e.target.value })}
             >
-              <option value="work">Work -- Red</option>
+              <option value="work">Work -- Orange</option>
               <option value="personal">Personal -- Blue</option>
               <option value="fun">Fun -- Green</option>
               <option value="school">School -- Purple</option>
